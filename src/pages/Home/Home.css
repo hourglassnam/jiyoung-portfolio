@@ -172,7 +172,7 @@
   width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 /* ── Hover label badge on each card ── */
@@ -291,16 +291,43 @@
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .home-hero-search-option:hover {
   background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.home-hero-search-option--active {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.home-hero-search-option--matched,
+.home-hero-search-option[aria-selected='true'] {
+  color: var(--color-text-primary);
+}
+
+.home-hero-search-option:hover .home-hero-search-option-text,
+.home-hero-search-option--active .home-hero-search-option-text {
+  color: var(--color-text-primary);
+  font-weight: 600;
 }
 
 .home-hero-search-option-icon {
   display: flex;
   flex-shrink: 0;
+  color: currentColor;
+}
+
+.home-hero-search-option-icon--matched {
+  color: var(--color-text-primary);
+}
+
+.home-hero-search-option-match {
+  color: var(--color-text-primary);
+  font-weight: 600;
 }
 
 .home-hero-search-footer {

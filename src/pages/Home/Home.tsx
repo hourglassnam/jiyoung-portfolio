@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type FormEvent, type KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import Footer from '@/components/Footer/Footer';
 import {
@@ -16,12 +17,16 @@ import './Home.css';
 /** Active state for the Research / Design toggle in the Hero */
 type HeroToggle = 'research' | 'design';
 
-type SearchSuggestion = { label: string; value: HeroToggle | null };
+type SearchSuggestion = {
+  label: string;
+  value: HeroToggle | null;
+  href: string;
+};
 
 const SEARCH_SUGGESTIONS: SearchSuggestion[] = [
-  { label: 'UX Research', value: 'research' },
-  { label: 'UX Design', value: 'design' },
-  { label: 'UX Everything', value: null },
+  { label: 'UX Research', value: 'research', href: '/' },
+  { label: 'UX Design', value: 'design', href: '/' },
+  { label: 'UX Everything', value: null, href: '/' },
 ];
 
 /** Rotating badge labels — "Engineer" only appears in auto-cycle */
@@ -100,12 +105,63 @@ function IconArrowUp() {
   );
 }
 
+function normalizeSearchValue(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function findSuggestionByQuery(query: string) {
+  const normalizedQuery = normalizeSearchValue(query);
+
+  if (!normalizedQuery) return null;
+
+  const suggestionAliases: Record<string, SearchSuggestion['value']> = {
+    research: 'research',
+    'ux research': 'research',
+    design: 'design',
+    'ux design': 'design',
+    everything: null,
+    'ux everything': null,
+    work: null,
+  };
+
+  const matchedValue = suggestionAliases[normalizedQuery];
+
+  return SEARCH_SUGGESTIONS.find(({ value }) => value === matchedValue) ?? null;
+}
+
+function getSuggestionMatchRange(label: string, query: string) {
+  const normalizedQuery = normalizeSearchValue(query);
+
+  if (!normalizedQuery) return null;
+
+  const matchIndex = label.toLowerCase().indexOf(normalizedQuery);
+  if (matchIndex === -1) return null;
+
+  return {
+    start: matchIndex,
+    end: matchIndex + normalizedQuery.length,
+  };
+}
+
+function getNextSuggestionIndex(currentIndex: number | null, direction: 'up' | 'down') {
+  if (direction === 'down') {
+    return currentIndex === null ? 0 : (currentIndex + 1) % SEARCH_SUGGESTIONS.length;
+  }
+
+  return currentIndex === null
+    ? SEARCH_SUGGESTIONS.length - 1
+    : (currentIndex - 1 + SEARCH_SUGGESTIONS.length) % SEARCH_SUGGESTIONS.length;
+}
+
 export default function Home() {
+  const navigate = useNavigate();
   const [activeToggle, setActiveToggle] = useState<HeroToggle>('research');
   const [userSelected, setUserSelected] = useState(false);
   const [badgeLabel, setBadgeLabel] = useState<string>('Researcher');
   const [badgeKey, setBadgeKey] = useState(0);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] = useState<number | null>(null);
   const [hoveredCard, setHoveredCard] = useState<HeroToggle | null>(null);
   const cycleIdxRef = useRef(0);
 
@@ -120,16 +176,98 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [userSelected]);
 
+  useEffect(() => {
+    if (!isSearchOpen) {
+      setHighlightedSuggestionIndex(null);
+    }
+  }, [isSearchOpen]);
+
   function selectCard(mode: HeroToggle) {
     setActiveToggle(mode);
     setUserSelected(true);
+    setSearchValue(mode === 'research' ? 'UX Research' : 'UX Design');
     const label = mode === 'research' ? 'Researcher' : 'Designer';
     setBadgeLabel(label);
     setBadgeKey((k) => k + 1);
   }
 
+  function applySearchSuggestion(suggestion: SearchSuggestion) {
+    setSearchValue(suggestion.label);
+    setIsSearchOpen(false);
+
+    if (suggestion.value) {
+      selectCard(suggestion.value);
+    } else {
+      navigate(suggestion.href);
+    }
+  }
+
   function handleSearchSuggestion(value: HeroToggle | null) {
-    if (value) selectCard(value);
+    const suggestion = SEARCH_SUGGESTIONS.find((item) => item.value === value);
+    if (suggestion) applySearchSuggestion(suggestion);
+  }
+
+  function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (
+      highlightedSuggestionIndex !== null &&
+      SEARCH_SUGGESTIONS[highlightedSuggestionIndex]
+    ) {
+      applySearchSuggestion(SEARCH_SUGGESTIONS[highlightedSuggestionIndex]);
+      return;
+    }
+
+    const matchedSuggestion = findSuggestionByQuery(searchValue);
+    if (matchedSuggestion) {
+      applySearchSuggestion(matchedSuggestion);
+    }
+  }
+
+  function handleSearchInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setIsSearchOpen(true);
+      setHighlightedSuggestionIndex((currentIndex) => {
+        const nextIndex = getNextSuggestionIndex(currentIndex, 'down');
+        setSearchValue(SEARCH_SUGGESTIONS[nextIndex].label);
+        return nextIndex;
+      });
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setIsSearchOpen(true);
+      setHighlightedSuggestionIndex((currentIndex) => {
+        const nextIndex = getNextSuggestionIndex(currentIndex, 'up');
+        setSearchValue(SEARCH_SUGGESTIONS[nextIndex].label);
+        return nextIndex;
+      });
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      setIsSearchOpen(false);
+    }
+  }
+
+  function renderSuggestionLabel(label: string) {
+    const matchRange = getSuggestionMatchRange(label, searchValue);
+
+    if (!matchRange) {
+      return <span className="home-hero-search-option-text">{label}</span>;
+    }
+
+    return (
+      <span className="home-hero-search-option-text">
+        {label.slice(0, matchRange.start)}
+        <span className="home-hero-search-option-match">
+          {label.slice(matchRange.start, matchRange.end)}
+        </span>
+        {label.slice(matchRange.end)}
+      </span>
+    );
   }
 
   return (
@@ -213,7 +351,7 @@ export default function Home() {
 
           {/* ── Search bar ── */}
           <div className={`home-hero-search${isSearchOpen ? ' home-hero-search--open' : ''}`}>
-            <div className="home-hero-search-bar">
+            <form className="home-hero-search-bar" onSubmit={handleSearchSubmit}>
               <span className="home-hero-search-icon">
                 <IconSearch />
               </span>
@@ -221,29 +359,64 @@ export default function Home() {
                 className="home-hero-search-input"
                 type="text"
                 placeholder="What do you want to see from me today?"
+                value={searchValue}
+                onChange={(event) => {
+                  setSearchValue(event.target.value);
+                  setHighlightedSuggestionIndex(null);
+                }}
                 onFocus={() => setIsSearchOpen(true)}
                 onBlur={() => setTimeout(() => setIsSearchOpen(false), 150)}
+                onKeyDown={handleSearchInputKeyDown}
                 aria-label="Search portfolio"
+                aria-expanded={isSearchOpen}
+                aria-controls="home-search-suggestions"
+                aria-activedescendant={
+                  highlightedSuggestionIndex !== null
+                    ? `home-search-suggestion-${highlightedSuggestionIndex}`
+                    : undefined
+                }
               />
-              <button className="home-hero-search-submit" aria-label="Submit search">
+              <button type="submit" className="home-hero-search-submit" aria-label="Submit search">
                 <IconArrowUp />
               </button>
-            </div>
+            </form>
 
             {isSearchOpen && (
-              <div className="home-hero-search-dropdown" role="listbox" aria-label="Suggestions">
-                {SEARCH_SUGGESTIONS.map(({ label, value }) => (
+              <div
+                id="home-search-suggestions"
+                className="home-hero-search-dropdown"
+                role="listbox"
+                aria-label="Suggestions"
+              >
+                {SEARCH_SUGGESTIONS.map(({ label, value }, index) => (
                   <button
                     key={label}
-                    className="home-hero-search-option"
+                    className={`home-hero-search-option${
+                      highlightedSuggestionIndex === index
+                        ? ' home-hero-search-option--active'
+                        : ''
+                    }${
+                      getSuggestionMatchRange(label, searchValue)
+                        ? ' home-hero-search-option--matched'
+                        : ''
+                    }`}
+                    id={`home-search-suggestion-${index}`}
                     role="option"
-                    aria-selected={value === activeToggle}
+                    aria-selected={highlightedSuggestionIndex === index}
                     onMouseDown={() => handleSearchSuggestion(value)}
+                    onMouseEnter={() => setHighlightedSuggestionIndex(index)}
                   >
-                    <span className="home-hero-search-option-icon">
+                    <span
+                      className={`home-hero-search-option-icon${
+                        highlightedSuggestionIndex === index ||
+                        getSuggestionMatchRange(label, searchValue)
+                          ? ' home-hero-search-option-icon--matched'
+                          : ''
+                      }`}
+                    >
                       <IconSearch />
                     </span>
-                    {label}
+                    {renderSuggestionLabel(label)}
                   </button>
                 ))}
                 <div className="home-hero-search-footer">Click to see related projects</div>
