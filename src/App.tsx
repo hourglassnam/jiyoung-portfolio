@@ -12,7 +12,7 @@ import DecompressionRoom from './pages/work/DecompressionRoom/DecompressionRoom'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <NavBar />
       <main>
         <Routes>
