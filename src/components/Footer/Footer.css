@@ -1,0 +1,125 @@
+.footer {
+  background-color: var(--color-brand-600);
+  width: 100%;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  /* Mobile */
+  gap: var(--spacing-14);
+  padding: var(--spacing-14) var(--spacing-4);
+}
+
+@media (min-width: 744px) {
+  .footer-inner {
+    padding: var(--spacing-14);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-inner {
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-10);
+    gap: var(--spacing-20);
+  }
+}
+
+/* ── Message ─────────────────────────────────────────────── */
+.footer-message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  color: var(--color-text-inverse);
+}
+
+/* Mobile: h5 SemiBold 28px */
+.footer-title {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0px;
+}
+
+/* Mobile: label-serif-16 */
+.footer-subtitle {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0px;
+}
+
+/* Tablet */
+@media (min-width: 744px) {
+  .footer-message {
+    gap: var(--spacing-6);
+  }
+
+  /* body-lg-serif 24px */
+  .footer-title {
+    font-family: 'Noto Serif Georgian', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+  }
+
+  /* Inter Medium 16px */
+  .footer-subtitle {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  /* h4 SemiBold 32px */
+  .footer-title {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+  }
+
+  /* body 18px Regular */
+  .footer-subtitle {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+
+/* ── Social + copyright ──────────────────────────────────── */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+}
+
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease;
+  border-radius: var(--radius-full);
+}
+
+.footer-social-icon:hover {
+  opacity: 0.75;
+}
+
+.footer-copyright {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-inverse);
+}

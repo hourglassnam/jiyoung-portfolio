@@ -1,0 +1,521 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-page);
+}
+
+/* ============================================================
+   Hero section
+   ============================================================ */
+.home-hero {
+  position: relative;
+  /* Pull up to cover the main padding-top so bg reaches the very top */
+  margin-top: calc(-1 * var(--nav-height-mobile));
+}
+
+/* ── Background illustration ─────────────────────────────── */
+.home-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Centered hero content container ─────────────────────── */
+.home-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  /* top padding compensates for negative margin-top on .home-hero */
+  padding: calc(var(--nav-height-mobile) + var(--spacing-8)) var(--spacing-4) var(--spacing-8);
+  width: 100%;
+}
+
+/* ── Cards + search as a single gapless unit ─────────────── */
+.home-hero-cards-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ============================================================
+   Headline: "I am Ji! A UX [badge]"
+   Mobile: two-line stack  |  Tablet+: single row
+   ============================================================ */
+.home-hero-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  width: 100%;
+  padding-top: var(--spacing-4);
+}
+
+.home-hero-headline-gi,
+.home-hero-headline-ux {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--color-bg-dark);
+  white-space: nowrap;
+}
+
+/* "A UX [badge]" row */
+.home-hero-headline-ux-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* ── Rotating badge pill ─────────────────────────────────── */
+.home-hero-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  padding: var(--spacing-1);
+  border: 2px solid var(--color-brand-300);
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-neutral-100) 70%, transparent);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.home-hero-badge-text {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  color: var(--color-brand-800);
+  text-align: center;
+  white-space: nowrap;
+  display: block;
+  animation: badge-in 0.3s ease;
+}
+
+@keyframes badge-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Hero cards — both visible, overlap, depth via selection
+   ============================================================ */
+.home-hero-cards {
+  position: relative;
+  width: 100%;
+  /* Mobile: same aspect ratio as Figma mobile card zone (560/138) */
+  aspect-ratio: 560 / 138;
+  overflow: hidden;
+}
+
+/* Shared card wrapper */
+.home-hero-card-wrap {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* z-index controlled by state classes */
+}
+
+/* ── Research card: left-leaning, tilted -4° ── */
+.home-hero-card-wrap--research {
+  left: 18.86%;
+  right: 47.55%;
+  top: calc(50% + 27.2px); /* mobile offset */
+  transform: translateY(-50%) rotate(-4deg) scale(var(--card-scale, 1));
+}
+
+/* ── Design card: right-leaning, tilted +13° ── */
+.home-hero-card-wrap--design {
+  left: 41.99%;
+  right: 18.83%;
+  top: calc(50% + 36.18px); /* mobile offset */
+  transform: translateY(-50%) rotate(12.99deg) scale(var(--card-scale, 1));
+}
+
+/* ── Selected card: larger, on top ── */
+.home-hero-card-wrap--active {
+  --card-scale: 1.05;
+  z-index: 2;
+}
+
+/* ── Unselected card: slightly receded ── */
+.home-hero-card-wrap--inactive {
+  --card-scale: 0.92;
+  z-index: 1;
+}
+
+/* ── Hover: extra bump regardless of selection state ── */
+.home-hero-card-wrap--research:hover {
+  --card-scale: 1.08;
+  z-index: 3;
+}
+.home-hero-card-wrap--design:hover {
+  --card-scale: 1.08;
+  z-index: 3;
+}
+
+.home-hero-card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Hover label badge on each card ── */
+.home-hero-card-label {
+  position: absolute;
+  top: var(--spacing-3);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  z-index: 1;
+  /* Badge styling consistent with existing tag/badge system */
+  background-color: var(--color-neutral-900);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-full);
+  padding: 3px var(--spacing-3);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.home-hero-card-label--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   Search bar
+   ============================================================ */
+.home-hero-search {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.home-hero-search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2) var(--spacing-5);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-surface);
+}
+
+.home-hero-search-icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--color-text-disabled);
+}
+
+.home-hero-search-input {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  background: none;
+  border: none;
+  outline: none;
+  min-width: 0;
+}
+
+.home-hero-search-input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.home-hero-search-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-600);
+  color: var(--color-text-inverse);
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.home-hero-search-submit:hover {
+  background-color: var(--color-brand-700);
+}
+
+.home-hero-search-dropdown {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  left: 0;
+  right: 0;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-2) 0;
+}
+
+.home-hero-search-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-2) var(--spacing-8);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-disabled);
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.home-hero-search-option:hover {
+  background-color: var(--color-neutral-100);
+}
+
+.home-hero-search-option-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.home-hero-search-footer {
+  border-top: 1px solid var(--color-neutral-300);
+  padding: var(--spacing-2) var(--spacing-8);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-disabled);
+}
+
+/* ============================================================
+   Bio ticker — scrolling band
+   ============================================================ */
+.home-bio-ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--color-neutral-400);
+  border-bottom: 1px solid var(--color-neutral-400);
+  background-color: var(--color-bg-page);
+  padding: var(--spacing-3) 0;
+}
+
+.home-bio-ticker-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: ticker-scroll 22s linear infinite;
+}
+
+.home-bio-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.home-bio-ticker-set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.home-bio-ticker-item {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-disabled);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding-right: var(--spacing-4);
+}
+
+.home-bio-ticker-dot {
+  font-size: 4px;
+  line-height: 1;
+  color: var(--color-neutral-400);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ============================================================
+   Projects
+   ============================================================ */
+.home-projects {
+  border-top: 2px solid var(--color-neutral-200);
+  padding: var(--spacing-10) var(--spacing-4) var(--spacing-20);
+}
+
+.home-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+}
+
+/* ============================================================
+   Tablet (≥ 744px)
+   ============================================================ */
+@media (min-width: 744px) {
+  .home-hero {
+    margin-top: calc(-1 * var(--nav-height-desktop));
+  }
+
+  .home-hero-inner {
+    padding: calc(var(--nav-height-desktop) + var(--spacing-10)) 0 var(--spacing-10);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Headline stays column on tablet (fits "I am Ji!" + "A UX [badge]" separately) */
+  .home-hero-headline {
+    gap: var(--spacing-4);
+  }
+
+  .home-hero-headline-gi,
+  .home-hero-headline-ux {
+    font-size: 48px;
+    letter-spacing: -1.5px;
+  }
+
+  .home-hero-badge {
+    width: 200px;
+  }
+
+  .home-hero-badge-text {
+    font-size: 32px;
+    letter-spacing: -1.5px;
+  }
+
+  /* Cards container: same aspect ratio, same offsets scaled */
+  .home-hero-card-wrap--research {
+    top: calc(50% + 50.46px);
+  }
+
+  .home-hero-card-wrap--design {
+    top: calc(50% + 66.44px);
+  }
+
+  .home-hero-search-input {
+    font-size: 18px;
+  }
+
+  .home-bio-ticker {
+    padding: var(--spacing-4) 0;
+  }
+
+  .home-bio-ticker-item {
+    font-size: 18px;
+  }
+
+  /* Projects */
+  .home-projects {
+    padding: var(--spacing-10) var(--spacing-14) var(--spacing-20);
+  }
+
+  .home-projects-grid {
+    gap: var(--spacing-8);
+  }
+}
+
+/* ============================================================
+   Desktop (≥ 1024px)
+   ============================================================ */
+@media (min-width: 1024px) {
+  .home-hero {
+    padding-bottom: var(--spacing-3);
+  }
+
+  .home-hero-inner {
+    padding: calc(var(--nav-height-desktop) + var(--spacing-14)) 0 var(--spacing-14);
+    max-width: 800px;
+    gap: var(--spacing-8);
+  }
+
+  /* Single row on desktop */
+  .home-hero-headline {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+  }
+
+  .home-hero-headline-gi,
+  .home-hero-headline-ux {
+    font-size: 64px;
+    font-weight: 400;
+    letter-spacing: -0.53px;
+  }
+
+  /* "A UX [badge]" stays as a row, now part of the single headline row */
+  .home-hero-headline-ux-row {
+    gap: var(--spacing-4);
+  }
+
+  .home-hero-badge {
+    width: 240px;
+  }
+
+  .home-hero-badge-text {
+    font-size: 40px;
+    letter-spacing: -1.5px;
+    color: var(--color-brand-900);
+  }
+
+  /* Cards container: wider with different aspect ratio */
+  .home-hero-cards {
+    width: 800px;
+    aspect-ratio: 800 / 235;
+  }
+
+  .home-hero-card-wrap--research {
+    top: calc(50% + 63.96px);
+  }
+
+  .home-hero-card-wrap--design {
+    top: calc(50% + 79.94px);
+  }
+
+  .home-hero-search {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  /* Projects */
+  .home-projects {
+    padding: var(--spacing-20);
+  }
+
+  .home-projects-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-8);
+  }
+}

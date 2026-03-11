@@ -1,0 +1,77 @@
+/* ============================================================
+   Playground.css
+   Mobile-first. Breakpoints: 744px (tablet), 1024px (desktop).
+   ============================================================ */
+
+.playground-page {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-page);
+}
+
+/* ── Building hero ───────────────────────────────────────────── */
+
+.playground-building {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Mobile: Figma hero frame 395px */
+  min-height: 395px;
+  padding: var(--spacing-20) var(--spacing-20);
+}
+
+.playground-building-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-10);
+}
+
+/* Mobile: 140px image, type/body-lg-serif */
+
+.playground-building-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.playground-building-text {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  color: var(--color-brand-600);
+  text-align: center;
+}
+
+/* ── Tablet (744px+) ─────────────────────────────────────────── */
+
+@media (min-width: 744px) {
+  .playground-building {
+    /* Tablet: Figma hero frame 640px */
+    min-height: 640px;
+  }
+
+  .playground-building-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* type/h5: SemiBold 28px, no letter-spacing */
+  .playground-building-text {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+}
+
+/* ── Desktop (1024px+) ──────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .playground-building-img {
+    width: 220px;
+    height: 220px;
+  }
+}

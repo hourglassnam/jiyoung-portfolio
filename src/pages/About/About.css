@@ -1,0 +1,491 @@
+/* ============================================================
+   About.css
+   Mobile-first. Breakpoints: 744px (tablet), 1024px (desktop).
+   ============================================================ */
+
+/* ── Page shell ─────────────────────────────────────────────── */
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-surface);
+}
+
+/* ── Intro ──────────────────────────────────────────────────── */
+
+/* Mobile: py=40px, px=16px */
+.about-intro {
+  padding: var(--spacing-10) var(--spacing-4);
+  background-color: var(--color-bg-surface);
+}
+
+.about-intro-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);   /* mobile: 32px */
+  width: 100%;
+}
+
+/* Mobile: 32px (type/h4) */
+.about-intro-title {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  color: var(--color-text-primary);
+}
+
+.about-intro-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);   /* mobile: 24px */
+}
+
+/* Mobile: 24px regular (type/body-lg-serif) */
+.about-intro-subheading {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  color: var(--color-text-muted);
+}
+
+.about-intro-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.about-intro-body p {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+/* ── Gallery ────────────────────────────────────────────────── */
+
+/* Mobile: py=40px, px=16px */
+.about-gallery {
+  padding: var(--spacing-10) var(--spacing-4);
+  background-color: var(--color-neutral-100);
+}
+
+.about-gallery-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-10);   /* mobile: 40px */
+  width: 100%;
+}
+
+.about-gallery-heading {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  color: var(--color-text-primary);
+  text-align: center;
+  width: 100%;
+}
+
+/* Gallery stage — mobile: 2-col grid of 120px cells, centered */
+
+.about-gallery-stage {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 120px);
+  column-gap: var(--spacing-14);
+  row-gap: var(--spacing-8);
+}
+
+.about-gallery-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.about-gallery-num {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+.about-gallery-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-xs);
+}
+
+.about-gallery-img--rounded {
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-surface);
+}
+
+/* Badge — mobile: hidden (no hover on touch) */
+
+.about-gallery-badge {
+  display: none;
+}
+
+/* Gallery legend — mobile: 320px max, left-aligned, centered by parent */
+
+.about-gallery-legend {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+  text-align: left;
+  max-width: 320px;
+  width: 100%;
+  word-break: break-word;
+}
+
+/* ── Connect ────────────────────────────────────────────────── */
+
+/* Mobile: py=40px, px=16px */
+.about-connect {
+  padding: var(--spacing-10) var(--spacing-4);
+  background-color: var(--color-bg-surface);
+}
+
+.about-connect-inner {
+  width: 100%;
+}
+
+/* Mobile: two photos side-by-side, body below */
+
+.about-connect-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+.about-connect-profile {
+  grid-area: 1 / 1;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.about-connect-secondary {
+  grid-area: 1 / 2;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.about-connect-body {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-8);   /* mobile: 32px gap between photos and body */
+}
+
+.about-connect-text {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.about-connect-btns {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.about-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  border: 2px solid var(--color-text-muted);
+  border-radius: var(--radius-full);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.about-connect-btn-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ── Tablet (744px+) ─────────────────────────────────────────── */
+
+@media (min-width: 744px) {
+
+  /* Intro: py=40px, px=56px; restore desktop-style typography */
+
+  .about-intro {
+    padding: var(--spacing-10) var(--spacing-14);
+  }
+
+  .about-intro-inner {
+    gap: var(--spacing-20);   /* tablet: 80px */
+  }
+
+  .about-intro-title {
+    font-size: 56px;   /* tablet/desktop: type/h2 */
+  }
+
+  .about-intro-story {
+    gap: var(--spacing-10);   /* tablet: 40px */
+  }
+
+  .about-intro-subheading {
+    font-size: 32px;           /* tablet/desktop: type/h4 */
+    font-weight: 600;
+    letter-spacing: -1.5px;
+  }
+
+  /* Gallery: py=40px, px=56px, gap=56px, absolute scatter within 632px stage */
+
+  .about-gallery {
+    padding: var(--spacing-10) var(--spacing-14);
+  }
+
+  .about-gallery-inner {
+    gap: var(--spacing-14);   /* tablet: 56px */
+  }
+
+  /* Stage: fixed 632 × 540px, items placed absolutely */
+
+  .about-gallery-stage {
+    display: block;
+    position: relative;
+    width: 632px;
+    height: 540px;
+    overflow: visible;
+  }
+
+  /* Each item: 120px wide, placed at Figma coordinates */
+
+  .about-gallery-item {
+    position: absolute;
+    left: var(--tablet-left);
+    top: var(--tablet-top);
+    width: 120px;
+    display: block;
+    overflow: visible;
+  }
+
+  .about-gallery-num {
+    position: absolute;
+    top: -22px;
+    left: 0;
+  }
+
+  .about-gallery-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+    display: block;
+  }
+
+  /* Badge: pill style, hidden by default, shown on hover */
+
+  .about-gallery-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-1) var(--spacing-4);
+    border: 1px solid var(--color-text-disabled);
+    border-radius: var(--radius-full);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .about-gallery-item:hover .about-gallery-badge {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .about-gallery-item--music .about-gallery-badge {
+    top: calc(100% + var(--spacing-2));
+  }
+
+  /* Legend: 632px wide, left-aligned */
+
+  .about-gallery-legend {
+    max-width: 632px;
+    text-align: left;
+  }
+
+  /* Connect: py=40px, px=56px; profile + body in a flex row */
+
+  .about-connect {
+    padding: var(--spacing-10) var(--spacing-14);
+  }
+
+  /* Container uses aspect-ratio so profile height scales naturally */
+
+  .about-connect-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-4);
+    aspect-ratio: 800 / 316;
+    width: 100%;
+  }
+
+  .about-connect-profile {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .about-connect-secondary {
+    display: none;
+  }
+
+  .about-connect-body {
+    flex: 1;
+    grid-column: unset;
+    margin-top: 0;
+    gap: var(--spacing-6);
+  }
+}
+
+/* ── Desktop (1024px+) ──────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+
+  /* Intro: py=80px, px=20px, 800px centered content */
+
+  .about-intro {
+    padding: var(--spacing-20) var(--spacing-5);
+  }
+
+  .about-intro-inner {
+    padding: 0 calc((100% - 800px) / 2);
+  }
+
+  /* Gallery: py=80px, px=20px, centered fixed-width scattered layout */
+
+  .about-gallery {
+    padding: var(--spacing-20) var(--spacing-5);
+  }
+
+  /* Cap the inner at the Figma reference width.
+     Below 1440px: fills available space and % positions scale down.
+     Above 1440px: inner stops growing → auto margins increase on both sides
+     so images stay at their exact distances from each other. */
+
+  .about-gallery-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Stage: full-width × 452px, items placed absolutely */
+
+  .about-gallery-stage {
+    display: block;
+    position: relative;
+    height: 452px;
+    width: 100%;
+    overflow: visible;
+  }
+
+  /* Each item: 120px wide, placed at Figma coordinates */
+
+  .about-gallery-item {
+    position: absolute;
+    left: var(--item-left);
+    top: var(--item-top);
+    width: 120px;
+    display: block;
+    overflow: visible;
+  }
+
+  .about-gallery-num {
+    position: absolute;
+    top: -22px;
+    left: 0;
+  }
+
+  .about-gallery-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+    display: block;
+  }
+
+  /* Badge: hidden by default, centered, flush below image */
+
+  .about-gallery-badge {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .about-gallery-item:hover .about-gallery-badge {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .about-gallery-item--music .about-gallery-badge {
+    top: calc(100% + var(--spacing-2));
+  }
+
+  /* Legend: 800px wide, left-aligned, centered */
+
+  .about-gallery-legend {
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    align-self: center;
+  }
+
+  /* Connect: py=80px, px=20px, 800px centered content */
+
+  .about-connect {
+    padding: var(--spacing-20) var(--spacing-5);
+  }
+
+  .about-connect-inner {
+    padding: 0 calc((100% - 800px) / 2);
+  }
+
+  /* At 800px inner width: aspect-ratio 800/316 → profile height = 316px */
+
+  .about-connect-main {
+    aspect-ratio: 800 / 316;
+  }
+}

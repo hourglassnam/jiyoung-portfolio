@@ -1,0 +1,163 @@
+/* ── NavBar shell ────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+/* ── Inner layout (mobile: full-width opaque bar) ────────── */
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height-mobile);
+  padding: 0 var(--spacing-4);
+  background-color: var(--color-bg-page);
+  border-bottom: 2px solid var(--color-neutral-200);
+}
+
+/* ── Tablet+: floating pill ──────────────────────────────── */
+@media (min-width: 744px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-5) var(--spacing-14);
+    pointer-events: none;
+    background: none;
+    border: none;
+  }
+
+  .navbar-inner {
+    pointer-events: all;
+    width: 560px;
+    height: auto;
+    padding: var(--spacing-5) var(--spacing-14);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-neutral-200);
+    background-color: color-mix(in srgb, var(--color-neutral-100) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar {
+    padding: var(--spacing-5) var(--spacing-20);
+  }
+
+  .navbar-inner {
+    width: 800px;
+  }
+}
+
+/* ── Logo ────────────────────────────────────────────────── */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-logo img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ── Desktop / Tablet link group ─────────────────────────── */
+.navbar-links {
+  display: none; /* hidden on mobile */
+  gap: var(--spacing-8);
+  align-items: center;
+}
+
+@media (min-width: 744px) {
+  .navbar-links {
+    display: flex;
+  }
+}
+
+/* ── Hamburger (mobile only) ─────────────────────────────── */
+.navbar-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  color: var(--color-text-primary);
+}
+
+.navbar-hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+@media (min-width: 744px) {
+  .navbar-hamburger {
+    display: none;
+  }
+}
+
+/* ── Mobile overlay ──────────────────────────────────────── */
+.navbar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-overlay);
+  z-index: 200;
+}
+
+.navbar-overlay--visible {
+  display: block;
+}
+
+/* ── Mobile drawer ───────────────────────────────────────── */
+.navbar-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;    /* fallback */
+  height: 100dvh;   /* fills visible viewport on mobile browsers */
+  background-color: var(--color-bg-surface);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  /* slide-in from right */
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-drawer--open {
+  transform: translateX(0);
+}
+
+.navbar-drawer-close {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--nav-height-mobile);
+  padding: 0 var(--spacing-4);
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+.navbar-drawer-close:hover {
+  color: var(--color-text-muted);
+}
+
+/* drawer is only for mobile; hide on tablet+ */
+@media (min-width: 744px) {
+  .navbar-drawer,
+  .navbar-overlay {
+    display: none !important;
+  }
+}

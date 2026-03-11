@@ -1,0 +1,246 @@
+/*
+ * Resume.css
+ * Updated: hero is always flex-col (image above text, never row);
+ *          first card in each section has 0 top padding;
+ *          content sections use 2-col label+cards layout at tablet+.
+ */
+
+/* ── Resume page ─────────────────────────────────────────── */
+
+.resume-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--nav-height-mobile));
+  background-color: var(--color-bg-page);
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+
+.resume-hero {
+  display: flex;
+  flex-direction: column;         /* always column — image above text */
+  gap: var(--spacing-8);          /* 32px between image / info / button */
+  padding: var(--spacing-10) var(--spacing-4) var(--spacing-8);
+  border-bottom: 2px solid var(--color-neutral-200);
+}
+
+.resume-profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-sm); /* 16px — matches Figma rounded-16 */
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.resume-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);           /* 24px between name and meta group */
+}
+
+.resume-name {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  color: var(--color-text-primary);
+}
+
+.resume-profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);           /* 16px between role and links row */
+}
+
+.resume-role {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+.resume-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;                        /* Figma specifies 6px exactly */
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+.resume-links a:hover {
+  color: var(--color-text-primary);
+}
+
+.resume-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-400);
+  flex-shrink: 0;
+}
+
+.resume-cta {
+  display: flex;
+}
+
+/* ── Content ─────────────────────────────────────────────── */
+
+.resume-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-14);
+  padding: var(--spacing-10) var(--spacing-4) var(--spacing-20);
+}
+
+/* ── Section ─────────────────────────────────────────────── */
+
+.resume-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.resume-section-label {
+  font-family: 'Noto Serif Georgian', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  color: var(--color-text-primary);
+}
+
+.resume-section-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.resume-section-cards .resume-card:first-child {
+  padding-top: var(--spacing-2); /* 8px */
+}
+
+/* ── Skills grid ─────────────────────────────────────────── */
+
+.resume-skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6);
+  align-items: center;
+}
+
+.resume-skill-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--spacing-5);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.resume-skill-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Mobile only (<744px) ────────────────────────────────── */
+
+@media (max-width: 743px) {
+  /* Hero: center-align image, text, and button */
+  .resume-hero {
+    align-items: center;
+    gap: var(--spacing-6);           /* 24px — matches Figma (image→text→button gaps) */
+    padding-bottom: var(--spacing-10); /* 40px, symmetric with top */
+  }
+
+  .resume-profile-info {
+    align-items: center;
+    gap: var(--spacing-3);           /* 12px between name and meta — from Figma */
+  }
+
+  .resume-name {
+    text-align: center;
+  }
+
+  .resume-profile-meta {
+    align-items: center;
+  }
+
+  /* Content: no outer padding/gap — each section provides its own */
+  .resume-content {
+    padding: 0;
+    gap: 0;
+  }
+
+  /* Section: 32px top/bottom, 16px sides; 32px between label and cards */
+  .resume-section {
+    padding: var(--spacing-8) var(--spacing-4);
+    gap: var(--spacing-8);
+  }
+}
+
+/* ── Tablet (744px+) ─────────────────────────────────────── */
+
+@media (min-width: 744px) {
+  .resume-page {
+    min-height: calc(100vh - var(--nav-height-desktop));
+  }
+
+  /* Hero stays column — image above text, padding grows */
+  .resume-hero {
+    gap: var(--spacing-10);        /* 40px matches Figma desktop gap */
+    padding: var(--spacing-14);
+  }
+
+  .resume-profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .resume-name {
+    font-size: 48px;
+  }
+
+  .resume-content {
+    padding: var(--spacing-14) var(--spacing-14) var(--spacing-20);
+  }
+
+  /* 2-column: label left, cards right */
+  .resume-section {
+    flex-direction: row;
+    gap: var(--spacing-14);
+  }
+
+  .resume-section-label {
+    width: 120px;
+    flex-shrink: 0;
+    padding-top: var(--spacing-4);
+  }
+
+  .resume-section-cards {
+    flex: 1;
+  }
+}
+
+/* ── Desktop (1024px+) ───────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .resume-hero {
+    padding: var(--spacing-20) 172px;
+  }
+
+  .resume-content {
+    padding: var(--spacing-20) 172px;
+    gap: 120px;
+  }
+
+  .resume-section-label {
+    width: 160px;
+  }
+}

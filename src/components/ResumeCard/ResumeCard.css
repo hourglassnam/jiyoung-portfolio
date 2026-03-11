@@ -1,0 +1,346 @@
+/* ── ResumeCard ───────────────────────────────────────────── */
+
+.resume-card {
+  display: flex;
+  gap: var(--spacing-8);           /* 32px between logo / timeline / content */
+  align-items: flex-start;
+  border-bottom: 2px solid var(--color-neutral-200);
+  padding: var(--spacing-6) var(--spacing-4); /* 24px 16px */
+  width: 100%;
+}
+
+/* Open state gets the filled background */
+.resume-card--open {
+  background-color: var(--color-neutral-200);
+}
+
+/* ── Left column (logo + optional timeline) ──────────────── */
+
+.resume-card-left {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* When timeline is present, stretch to full card height and gap logo from timeline */
+.resume-card-left--timeline {
+  gap: var(--spacing-6);           /* 24px between logo and timeline */
+  align-self: stretch;
+}
+
+/* ── Logo thumbnail ──────────────────────────────────────── */
+
+.resume-card-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--color-bg-surface);
+  flex-shrink: 0;
+}
+
+.resume-card-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.resume-card-logo-empty {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-neutral-300);
+}
+
+/* ── Timeline (multi-role cards, e.g. Xsauce) ───────────── */
+
+.resume-card-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);           /* 8px between dot/line items */
+  flex: 1;
+  width: 8px;
+}
+
+.resume-card-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: var(--color-neutral-400);
+  flex-shrink: 0;
+}
+
+.resume-card-timeline-line {
+  width: 4px;
+  height: 48px;
+  background-color: var(--color-neutral-300);
+  flex-shrink: 0;
+}
+
+.resume-card-timeline-line--flex {
+  height: auto;
+  flex: 1;
+  min-height: 4px;
+}
+
+/* ── Content area ────────────────────────────────────────── */
+
+.resume-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);           /* 24px between header, body sections */
+  min-width: 0;
+}
+
+/* ── Header row ──────────────────────────────────────────── */
+
+.resume-card-header {
+  display: flex;
+  gap: var(--spacing-8);           /* 32px between title-group and toggle */
+  align-items: center;
+}
+
+.resume-card-title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);           /* 8px between title and meta */
+  min-width: 0;
+}
+
+.resume-card-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resume-card-org {
+  color: var(--color-text-muted);
+}
+
+.resume-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);           /* 8px */
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-muted);
+}
+
+.resume-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-400);
+  flex-shrink: 0;
+}
+
+/* ── Toggle button ───────────────────────────────────────── */
+
+.resume-card-toggle {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  padding: 0;
+  /* button reset handled globally */
+}
+
+.resume-card-icon {
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+.resume-card-icon--open {
+  transform: rotate(45deg);
+}
+
+/* ── Expandable body ─────────────────────────────────────── */
+
+.resume-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);           /* 24px between sub-roles / description / artifacts */
+}
+
+/* ── Sub-role row (multi-role cards) ─────────────────────── */
+
+.resume-card-subrole {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.resume-card-subrole-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+/* ── Description ─────────────────────────────────────────── */
+
+.resume-card-description {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ── Article link artifact ───────────────────────────────── */
+
+.resume-card-article-link {
+  display: flex;
+  gap: var(--spacing-6);           /* 24px between thumbnail and title */
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+}
+
+.resume-card-article-thumbnail {
+  position: relative;
+  width: 132px;
+  height: 83px;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  background-color: var(--color-bg-surface);
+  flex-shrink: 0;
+}
+
+.resume-card-article-thumbnail > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.resume-card-article-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--spacing-10);        /* 40px */
+  height: var(--spacing-10);       /* 40px */
+  border-radius: var(--radius-full);
+  background-color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-inverse);
+  transition: background-color 0.15s ease;
+}
+
+.resume-card-article-title {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-secondary);
+  min-width: 0;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.resume-card-article-link:hover .resume-card-article-btn {
+  background-color: var(--color-text-secondary);
+}
+
+.resume-card-article-link:hover .resume-card-article-title {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Artifact thumbnails ─────────────────────────────────── */
+
+.resume-card-artifacts {
+  display: flex;
+  gap: var(--spacing-4);           /* 16px between thumbnails */
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.resume-card-artifact {
+  flex-shrink: 0;
+  width: 132px;
+  height: 83px;
+  border-radius: var(--radius-xs); /* 12px */
+  overflow: hidden;
+  background-color: var(--color-neutral-300);
+}
+
+.resume-card-artifact img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Mobile (<744px) ─────────────────────────────────────── */
+
+@media (max-width: 743px) {
+  /* Card: reduce gap, remove horizontal padding */
+  .resume-card {
+    gap: var(--spacing-4);           /* 16px (was 32px) */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Multi-role card: no top padding */
+  .resume-card:has(.resume-card-left--timeline) {
+    padding-top: 0;
+  }
+
+  /* Title group: no gap between title line and meta line */
+  .resume-card-title-group {
+    gap: 0;
+  }
+
+  /* Org: stack below role title, smaller + regular weight */
+  .resume-card-pipe {
+    display: none;
+  }
+
+  .resume-card-org {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  /* Meta: smaller + regular weight */
+  .resume-card-meta {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  /* Duration: hide in header meta (date range only) */
+  .resume-card-duration {
+    display: none;
+  }
+
+  /* Timeline line: 44px on mobile (was 48px) */
+  .resume-card-timeline-line {
+    height: 44px;
+  }
+
+  /* Show max 2 artifact thumbnails */
+  .resume-card-artifact:nth-child(n+3) {
+    display: none;
+  }
+}

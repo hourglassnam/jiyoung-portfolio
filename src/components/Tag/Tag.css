@@ -1,0 +1,52 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ── Sizes ───────────────────────────────────────────────── */
+.tag--sm {
+  font-size: 12px;
+  padding: 3px var(--spacing-2);
+}
+
+.tag--md {
+  font-size: 14px;
+  padding: var(--spacing-1) var(--spacing-3);
+}
+
+.tag--lg {
+  font-size: 16px;
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+/* ── Solid fill colors ───────────────────────────────────── */
+.tag--solid.tag--blue   { background-color: var(--color-tag-blue); }
+.tag--solid.tag--sky    { background-color: var(--color-tag-sky); }
+.tag--solid.tag--mint   { background-color: var(--color-tag-mint); }
+.tag--solid.tag--yellow { background-color: var(--color-tag-yellow); }
+.tag--solid.tag--pink   { background-color: var(--color-tag-pink); }
+.tag--solid.tag--peach  { background-color: var(--color-tag-peach); }
+.tag--solid.tag--default {
+  background-color: var(--color-neutral-200);
+}
+
+/* ── Outline fill ────────────────────────────────────────── */
+.tag--outline {
+  background-color: transparent;
+}
+
+.tag--outline.tag--blue   { border: 1px solid var(--color-tag-blue); }
+.tag--outline.tag--sky    { border: 1px solid var(--color-tag-sky); }
+.tag--outline.tag--mint   { border: 1px solid var(--color-tag-mint); }
+.tag--outline.tag--yellow { border: 1px solid var(--color-tag-yellow); }
+.tag--outline.tag--pink   { border: 1px solid var(--color-tag-pink); }
+.tag--outline.tag--peach  { border: 1px solid var(--color-tag-peach); }
+.tag--outline.tag--default { border: 1px solid var(--color-neutral-300); }
